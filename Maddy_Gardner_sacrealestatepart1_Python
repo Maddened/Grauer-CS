@@ -1,0 +1,27 @@
+host_list = []
+email_parts_lists = []
+counter = 0
+mydict = {}
+
+lines = open("Sacramentorealestatetransactions.csv.csv","r")
+hosts = open("hosts.txt","r")
+
+output = open("output.txt","wb")
+output.write("The most popular zipcode in Sacramento is:\n")
+
+for line in lines:
+    line = line.strip("\n")
+    email_parts = line.split(',')
+    if email_parts[2] not in mydict.keys():
+        mydict[email_parts[2]] = 1
+    else:
+        mydict[email_parts[2]] += 1
+print mydict
+maxval = 0
+maxkey = ""
+for j in mydict.keys():
+    if mydict[j] > maxval:
+        maxval = mydict[j]
+        maxkey = j
+print maxval
+print maxkey
