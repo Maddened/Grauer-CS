@@ -1,0 +1,37 @@
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+public class Contact
+{
+  private String person;
+  public String contacts;
+  private String number;
+  
+  public Contact(String aPerson, String aNumber) 
+  {
+      person = aPerson;
+      contacts = "";
+      number = aNumber;
+      
+  }
+  
+  public void getContacts()
+  {
+      try {
+          PrintWriter in = new PrintWriter(new FileWriter("C:\\Users\\Maddy\\Documents\\Java\\contacthelp.txt"));
+          in.println(contacts);
+          in.close();
+      }
+      catch(IOException e) {
+          System.out.println("Error");
+      }
+  }
+  public void includeFriendly(Contact contact)
+  {
+      contacts = contacts + contact.person + contact.number + "" + ",";
+  }
+  public void unfriend(Contact nonContact)
+  {
+      contacts = contacts.replace(nonContact.person + nonContact.number + "" + ",", "");
+  }
+}
