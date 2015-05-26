@@ -1,0 +1,41 @@
+host_list = []
+email_parts_lists = []
+counter = 0
+mydict = {}
+yourdict = {}
+
+lines = open("Sacramentorealestatetransactions.csv.csv","r")
+hosts = open("hosts.txt","r")
+
+output = open("output.txt","wb")
+output.write("The most popular zipcode in Sacramento is:\n")
+c = []
+sf = []
+
+
+
+def bestdeal(sf, c):
+    square_foot = 0
+    sf_i = 0
+    for s, f in enumerate(sf):
+        if (f < 300 or f > 10000):
+            continue
+        if (c[s] < 300 or c[s] > 10000):
+            continue
+        ratio = float(f)/float(c[s])
+
+        if (ratio) > square_foot:
+            square_foot = ratio
+            sf_i = s
+    return [square_foot, sf_i, c[sf_i], sf[sf_i]]
+
+            
+for line in lines:
+    line = line.strip("\n")
+    email_parts = line.split(',')
+    c.append(int(email_parts[9]))
+    sf.append(int(email_parts[6]))
+print bestdeal(sf, c)
+
+output.close()
+hosts.close()
