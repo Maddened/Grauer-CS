@@ -1,0 +1,48 @@
+import csv
+import math
+
+host_list = []
+email_parts_lists = []
+
+lines = open("Sacramentorealestatetransactions.csv.csv","r")
+hosts = open("hosts.txt","r")
+
+lat1 = []
+long1 = []
+lat2 = 33.0283
+long2 = -117.2562
+
+def closest(lat1, long1, lat2, long2):
+    lat1, long1, lat2, long2 = map(math.radians, [lat1, long1, lat2, long2])
+    dlat = lat2 - lat1
+    dlong = long2 - long1
+    ans = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlong/2)**2
+    close = 2 * math.asin(math.sqrt(ans))
+    km = 6367 * close
+    return km
+
+maxval = 0
+lonval = 0
+latval = 0
+for line in lines:
+    line = line.strip("\n")
+    email_parts = line.split(',')
+    lat1.append(float(email_parts[10]))
+    long1.append(float(email_parts[11]))
+    
+distance = []    
+for i,latVal in enumerate(lat1):
+    distance.append([latVal, long1[i], closest(latVal, long1[i], lat2, long2)])
+
+for d in distance:
+    if d[2] > maxval:
+        maxval = d[2]
+        lonval = d[1]
+        latval = d[0]
+print maxval
+print lonval
+print latval
+
+
+hosts.close()
+lines.close()
