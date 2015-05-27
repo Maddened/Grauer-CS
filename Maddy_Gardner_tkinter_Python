@@ -1,0 +1,79 @@
+from Tkinter import *
+
+def close():
+	root.destroy()
+
+def keyPressed(event):
+	canvas.data.pressed = event.keysym
+	if(event.keysym == "Up" and canvas.data.y1 > 10):
+		canvas.data.y1 -= 10
+		canvas.data.y2 -= 10
+		canvas.data.color = "red"
+	elif(event.keysym == "Down" and canvas.data.y2 < 190):
+		canvas.data.y1 += 10
+		canvas.data.y2 += 10
+		canvas.data.color = "blue"
+	elif(event.keysym == "Right" and canvas.data.x2 < 290):
+		canvas.data.x1 += 10
+		canvas.data.x2 += 10
+		canvas.data.color = "green"
+	elif(event.keysym == "Left" and canvas.data.x1 > 10):
+		canvas.data.x1 -= 10
+		canvas.data.x2 -= 10
+		canvas.data.color = "gray"
+	else:
+		pass
+
+def redrawAll():
+	canvas.delete(ALL)
+	canvas.create_rectangle(0, 0, canvas.data.width+10, canvas.data.height+10, fill="black")
+	canvas.create_text(150, 10, text = canvas.data.pressed)
+	canvas.create_rectangle(canvas.data.x1, canvas.data.y1, canvas.data.x1+20, canvas.data.y1+20, fill=canvas.data.color)
+	canvas.create_rectangle(30, 30, canvas.data.width1, canvas.data.height1, fill="yellow")
+
+def timerFired():
+	redrawAll()
+	canvas.after(canvas.data.delay, timerFired)
+	if (canvas.data.x1 == 10 and canvas.data.y1 == 10):
+		canvas.data.color = "red"
+	elif(canvas.data.x2 == 290 and canvas.data.y2 == 190):
+		canvas.data.color = "blue"
+	elif(canvas.data.x1 == 10 and canvas.data.y2 == 190):
+		canvas.data.color = "green"
+	elif(canvas.data.y1 == 10 and canvas.data.x2 == 290):
+		canvas.data.color = "gray"
+
+
+def init():
+	#COORDS
+	canvas.data.x1 = 140 #top left x
+	canvas.data.y1 = 90 #top left y
+	canvas.data.x2 = 160 #bottom right x
+	canvas.data.y2 = 110 #bottom right y
+	canvas.data.color = "yellow"
+	# OTHER
+	canvas.data.width= 300
+	canvas.data.height= 200
+	canvas.data.delay = 10
+	canvas.data.pressed = ""
+	#FOOD!
+	canvas.data.width1 = 20
+	canvas.data.height1 = 20
+	canvas.data.delay1 = 10
+	canvas.data.pressed1 = ""
+
+def main():
+	global root
+	root = Tk()
+	global canvas
+	canvas = Canvas(root, width=300, height=200)
+	canvas.pack()
+	class Struct(): pass
+	canvas.data = Struct()
+	init()
+	timerFired()
+	root.protocol("WM_DELETE_WINDOW", close)
+	root.bind("<Key>", keyPressed)
+	root.mainloop()
+	
+main()
