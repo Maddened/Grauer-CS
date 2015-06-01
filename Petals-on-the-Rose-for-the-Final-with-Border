@@ -11,7 +11,9 @@ def redrawAll():
 	canvas.create_image(canvas.data.x1-100, canvas.data.y1, image=canvas.data.images[canvas.data.diceVal[3]])
 	canvas.create_image(canvas.data.x1-200, canvas.data.y1, image=canvas.data.images[canvas.data.diceVal[4]])
 	canvas.create_image(canvas.data.x1+200, canvas.data.y1, image=canvas.data.images[canvas.data.diceVal[5]])
-	canvas.create_image(300, 350, image=canvas.data.rose)
+	canvas.create_image(250, 350, image=canvas.data.rose)
+	canvas.create_image(350, 350, image=canvas.data.bluerose)
+	canvas.create_image(300, 130, image=canvas.data.yellowrose)
 	canvas.create_text(200, 90, text="Petals on the Rose       = ")
 	canvas.create_text(300,90,text=canvas.data.petalsOntheRose)
 	canvas.create_text(300, 70, text="Guess the method by which the petals are found:")
@@ -54,8 +56,8 @@ def init():
 	canvas.data.rose = PhotoImage(file=canvas.data.rose+".gif")
 	canvas.data.bluerose = 'bluerose'
 	canvas.data.bluerose = PhotoImage(file=canvas.data.bluerose+".gif")
-
-	tkFont.Font(family="Times", size=24, weight=tkFont.BOLD)
+	canvas.data.yellowrose = 'yellowrose'
+	canvas.data.yellowrose = PhotoImage(file=canvas.data.yellowrose+".gif")
 
 def rollDice():
 	#"roll" dice whenever button referenced by the variable butt1 is pushed
@@ -83,7 +85,7 @@ def main():
 
 	#butt1 is a button that calls the function rollDice()
 	butt1 = Button(frame,text="Roll The Dice to See the Petals on the Rose", command=rollDice)
-	butt1.configure(activebackground = "blue", relief = RAISED)
+	butt1.configure(activebackground = "blue", relief = RAISED, background= "green", cursor="watch", overrelief=SUNKEN)
 	butt1.pack(fill='x')
 
 
@@ -98,5 +100,5 @@ def main():
 	root.wm_title("Petals on the Rose")
 	#launch the GUI
 	root.mainloop()
-	
+
 main()
