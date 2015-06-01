@@ -80,13 +80,13 @@ def main():
 	frame = Frame(root,bg="red",width=50, height=50)
 	#fill='x' is used to
 	frame.pack(fill='x')
-
+	
+	root.overridedirect(1)
+	
 	#butt1 is a button that calls the function rollDice()
 	butt1 = Button(frame,text="Roll The Dice to See the Petals on the Rose", command=rollDice)
-	butt1.configure(activebackground = "blue", relief = RAISED)
+	butt1.configure(activebackground = "blue", relief = RAISED, background= "green", cursor="watch", overrelief=SUNKEN)
 	butt1.pack(fill='x')
-
-  root.overridedirect(1)
 
 	#canvas.data is a data structure that holds all of our data in one place
 	class Struct(): pass
@@ -99,5 +99,5 @@ def main():
 	root.wm_title("Petals on the Rose")
 	#launch the GUI
 	root.mainloop()
-	
+
 main()
