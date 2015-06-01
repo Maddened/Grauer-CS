@@ -85,8 +85,11 @@ def main():
 
 	#butt1 is a button that calls the function rollDice()
 	butt1 = Button(frame,text="Roll The Dice to See the Petals on the Rose", command=rollDice)
-	butt1.configure(activebackground = "blue", relief = RAISED, background= "green", cursor="watch", overrelief=SUNKEN)
+	butt1.configure(activebackground = "blue", activeforeground="green", relief = RAISED, background= "green", foreground="blue", cursor="watch", overrelief=SUNKEN)
 	butt1.pack(fill='x')
+
+	canvas.configure(background="yellow")
+	root.configure(background="dark red")
 
 
 	#canvas.data is a data structure that holds all of our data in one place
